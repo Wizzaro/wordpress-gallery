@@ -19,6 +19,7 @@ use \Exception;
 class Images extends AbstractPluginController {
     
     public function init_front() {
+        add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_style' ) );
         add_filter( 'the_content', array( $this, 'filter_add_images_to_content' ) );
     }
     
@@ -36,6 +37,14 @@ class Images extends AbstractPluginController {
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_upload' ), array( $this, 'ajax_action_image_upload' ) );
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'set_thumbnail' ), array( $this, 'ajax_action_image_set_thumbnail' ) );
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_delete' ), array( $this, 'ajax_action_image_delete' ) );
+        
+        add_action( 'save_post', array( $this, 'reset_images_view_cache' ), 10, 2 );
+    }
+
+    public function action_enqueue_style() {
+        if ( apply_filters( 'wizzaro-gallery-enqueue_style', true ) ) {
+            wp_enqueue_style( 'wizzaro-gallery', $this->_config->get_css_url() . 'gallery.css', array(), '1.0.0' );
+        }
     }
     
     public function filter_add_images_to_content( $content ) {
@@ -46,17 +55,59 @@ class Images extends AbstractPluginController {
                 
                 wp_enqueue_script( 'wizzaro-gallery-script', $this->_config->get_js_url() . 'wizzaro-gallery.js', array( 'jquery', 'jquery-masonry' ), '1.0', true );
                 
-                $service = ImagesService::get_instance();
+                $view = wp_cache_get( 'wizzaro_gallery_images', $post->post_type . '-' . $post->ID );
                 
-                $content .= $this->get_view( 'post-gallery', array (
-                    'languages_domain' => $this->_config->get( 'languages', 'domain' ),
-                    'urls' => $service->get_gallery_url( $service->get_gallery_dir( $post, false ) ),
-                    'images' => $service->get_post_images( $post, true )
-                ) );
+                if ( ! $view ) {
+                    $service = ImagesService::get_instance();
+                    
+                    $view_data = array (
+                        'languages_domain' => $this->_config->get( 'languages', 'domain' ),
+                        'urls' => $service->get_gallery_url( $service->get_gallery_dir( $post, false ) ),
+                        'images' => $service->get_post_images( $post, true )
+                    );
+                    
+                    if ( $this->is_themes_view_exist( 'post-gallery-' . $post->post_type ) ) {
+                        $view = $this->get_themes_view( 'post-gallery-' . $post->post_type, $view_data );
+                    } elseif ( $this->is_themes_view_exist( 'post-gallery' ) ) {
+                        $view = $this->get_themes_view( 'post-gallery', $view_data );
+                    } else {
+                        $view = $this->get_view( 'post-gallery', $view_data );
+                    }
+                    
+                    wp_cache_set( 'wizzaro_gallery_images', $view , $post->post_type . '-' . $post->ID );
+                }
+
+                $content .= $view;
             }
         }
         
         return $content;
+    }
+
+    public function reset_images_view_cache( $post_id, $post ) {
+        if ( wp_is_post_revision( $post_id ) ) {
+            return;
+        }
+        
+        if ( $post && in_array( $post->post_type, PluginConfig::get_instance()->get_galeries_post_types() ) ) {
+            $service = ImagesService::get_instance();
+            
+            $view_data = array (
+                'languages_domain' => $this->_config->get( 'languages', 'domain' ),
+                'urls' => $service->get_gallery_url( $service->get_gallery_dir( $post, false ) ),
+                'images' => $service->get_post_images( $post, true )
+            );
+            
+            if ( $this->is_themes_view_exist( 'post-gallery-' . $post->post_type ) ) {
+                $view = $this->get_themes_view( 'post-gallery-' . $post->post_type, $view_data );
+            } elseif ( $this->is_themes_view_exist( 'post-gallery' ) ) {
+                $view = $this->get_themes_view( 'post-gallery', $view_data );
+            } else {
+                $view = $this->get_view( 'post-gallery', $view_data );
+            }
+            
+            wp_cache_set( 'wizzaro_gallery_images', $view , $post->post_type . '-' . $post->ID );
+        }
     }
     
     public function action_plugin_activation() {

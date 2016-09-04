@@ -4,6 +4,16 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         //----------------------------------------
         compass: {
+            dist_gallery: {                   
+                options: {            
+                    config: 'assets-dev/sass-front/config.rb',
+                    specify: [
+                        'assets-dev/sass-front/gallery.scss',
+                    ],
+                    outputStyle: 'compressed',
+                    environment: 'production'
+                }
+            },
             dist_admin_metabox: {                   
                 options: {            
                     config: 'assets-dev/sass-admin/config.rb',
@@ -17,7 +27,7 @@ module.exports = function (grunt) {
         },
         //----------------------------------------
         concat: {
-            dist_wizzaro_gallery_admin: {
+            dist_admin_metabox: {
                 src: [
                     'assets-dev/js-admin/*.js',
                     'assets-dev/js-admin/*/*.js',
@@ -27,7 +37,7 @@ module.exports = function (grunt) {
                 ],
                 dest: 'assets/js/admin/wizzaro-gallery.js'
             },
-            dist_wizzaro_gallery: {
+            gallery: {
                 src: [
                     'assets-dev/js/*.js',
                 ],
@@ -36,7 +46,7 @@ module.exports = function (grunt) {
         },
         //----------------------------------------
         uglify: {
-            js_wizzaro_gallery: {
+            gallery: {
                 files: {
                     'assets/js/admin/wizzaro-gallery.js': [
                         'assets-dev/js-admin/*.js',
@@ -53,13 +63,23 @@ module.exports = function (grunt) {
         },
         //----------------------------------------
         watch: {
-            js_plugin_wizzaro_gallery: {
+            js_gallery: {
                 files: [
                     'assets-dev/js/*.js',
                 ],
-                tasks: ['concat:dist_wizzaro_gallery']
+                tasks: ['concat:gallery']
             },
-            js_plugin_wizzaro_gallery_admin: {
+            css_gallery: {
+                files: [
+                    'assets-dev/sass-front/*.scss',
+                    'assets-dev/sass-front/*/*.scss',
+                    'assets-dev/sass-front/*/*/*.scss',
+                    'assets-dev/sass-front/*/*/*/*.scss',
+                    'assets-dev/sass-front/*/*/*/*/*.scss',
+                ],
+                tasks: ['compass:dist_gallery']
+            },
+            js_dist_admin_metabox: {
                 files: [
                     'assets-dev/js-admin/*.js',
                     'assets-dev/js-admin/*/*.js',
@@ -67,9 +87,9 @@ module.exports = function (grunt) {
                     'assets-dev/js-admin/*/*/*/*.js',
                     'assets-dev/js-admin/*/*/*/*/*.js',
                 ],
-                tasks: ['concat:dist_wizzaro_gallery_admin']
+                tasks: ['concat:dist_admin_metabox']
             },
-            css_plugin_wizzaro_gallery: {
+            css_dist_admin_metabox: {
                 files: [
                     'assets-dev/sass-admin/*.scss',
                     'assets-dev/sass-admin/*/*.scss',
@@ -77,7 +97,7 @@ module.exports = function (grunt) {
                     'assets-dev/sass-admin/*/*/*/*.scss',
                     'assets-dev/sass-admin/*/*/*/*/*.scss',
                 ],
-                tasks: ['compass:dist_wizzaro_gallery']
+                tasks: ['compass:dist_admin_metabox']
             }
         }
     });

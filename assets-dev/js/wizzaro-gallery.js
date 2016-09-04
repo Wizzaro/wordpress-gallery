@@ -102,6 +102,7 @@ Wizzaro.Plugins.Gallery.v1.Loader = function( config, $ ) {
         setTimeout( function() {    
             _images_container.masonry( {
                 itemSelector: config.image_item,
+                isAnimated: false
             } );
         }, 0);
     }
