@@ -1,0 +1,28 @@
+{
+    "name": "wizzaro/wordpress-framework-v1",
+    "description": "This is simple framework for build wordpress advance themes and plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "wizzaro",
+        "wordpress-framework"
+    ],
+    "homepage": "https://github.com/Wizzaro/wordpress-framework-v1",
+    "authors": [
+        {
+            "name": "Przemysław Dziadek",
+            "email": "przemyslaw.dziadek@gmail.com",
+            "homepage": "http://www.wizzaro.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wizzaro\\WPFramework\\v1\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^5.5 || ^7.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
