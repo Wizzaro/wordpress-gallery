@@ -1,0 +1,144 @@
+#wizzaro-gal-images {
+    border-top: $images-border;
+    border-bottom: $images-border;
+    
+    #wg-no-images {
+        text-align: center;
+    }
+    
+    #wgi-wrapper {
+        margin: $images-wrapper-margin 0 $images-wrapper-margin 0;
+        font-size: 0;
+        
+        &.ui-sortable {
+            .wgi-image-container {
+                cursor: move;
+            }
+        }
+    }
+    
+    .wgi-image-placeholder {
+        display: inline-block;
+        vertical-align: middle;
+        width: percentage(1/$images-number-of-images-in-row);
+        
+        
+        &:after{
+            content: " ";
+            display: block;
+            background: $images-item-sort-placeholder-bg-color;
+            outline: 1px dashed $images-item-sort-placeholder-outline-color;
+            padding-top: $images-item-image-ratio-height-to-width;
+            padding-bottom: $images-item-button-height;
+        }
+    }
+    
+    .wgi-image-container {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        width: percentage(1/$images-number-of-images-in-row);
+        
+        &.loading:after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: url($images-item-delete-shadow-loader-image) no-repeat center center $images-item-delete-shadow-color;
+            background-color: rgba($images-item-delete-shadow-color, $images-item-delete-shadow-opacity);
+        }
+        
+        &.gallery-thumb .wgi-image-wrapper,
+        &.invisible .wgi-image-wrapper {
+            position: relative;
+        }
+        
+        &.gallery-thumb .wgi-image-wrapper:before,
+        &.invisible .wgi-image-wrapper:after {
+            display: block;
+            position: absolute;
+            top: $images-item-mark-space;
+            z-index: 1;
+            width: $images-item-mark-size;
+            height: $images-item-mark-size;
+            font-family: $images-item-mark-font-family;
+            font-size: $images-item-mark-font-size;
+            line-height: $images-item-mark-size;
+            text-align: center;
+            color: $images-item-mark-color;
+            @include border-radius(50%);
+        }
+        
+        &.gallery-thumb .wgi-image-wrapper:before {
+            content: $images-item-mark-gallery-thumbnai-content;
+            left: $images-item-mark-space;
+            background: $images-item-mark-gallery-thumbnai-bg-color;
+        }
+        
+        &.invisible .wgi-image-wrapper:after {
+            content: $images-item-mark-invisible-content;
+            right: $images-item-mark-space;
+            background: $images-item-mark-invisible-bg-color;
+        }
+        
+        .wgi-image-wrapper {
+            margin: $images-item-margin;
+        }
+        
+        .wgi-i-image {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background: $images-item-bg-color;
+            padding-top: $images-item-image-ratio-height-to-width;
+            
+            img {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+                margin: 0 auto;
+            }
+        }
+        
+        .wgi-i-butons {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            
+            .wgi-i-b-button {
+                display: table-cell;
+                background: $images-item-button-bg-color;
+                line-height: $images-item-button-height;
+                text-align: center;
+                text-decoration: none;
+                color: $images-item-button-color;
+                
+                &:hover {
+                    background: $images-item-button-bg-color-hover;
+                }
+                
+                .dashicons {
+                    line-height: $images-item-button-height;
+                }
+                
+                &.wgi-i-b-del {
+                    background: $images-item-button-del-bg-color;
+                    
+                    &:hover {
+                        background: $images-item-button-del-bg-color-hover;
+                    }
+                }
+            }
+        }
+    }
+}

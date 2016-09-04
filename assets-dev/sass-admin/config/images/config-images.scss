@@ -1,0 +1,36 @@
+$images-number-of-images-in-row: 9;
+
+$images-border: 1px solid get_admin_color( Grey );
+
+$images-wrapper-margin: 10px;
+
+$images-item-margin: 2px;
+$images-item-image-ratio-height-to-width: 67%;
+$images-item-bg-color: get_admin_color( Grey, 2 );
+
+$images-item-delete-shadow-loader-image: '/wp-admin/images/wpspin_light.gif';
+$images-item-delete-shadow-opacity: 0.7;
+$images-item-delete-shadow-color: get_admin_color( White );
+
+$images-item-sort-placeholder-bg-color: get_admin_color( Grey, 2 );
+$images-item-sort-placeholder-outline-color: get_admin_color( Blue );
+
+$images-item-mark-space: 5px;
+$images-item-mark-size: 22px;
+$images-item-mark-font-family: dashicons;
+$images-item-mark-font-size: 13px;
+$images-item-mark-color: get_admin_color( White );
+
+$images-item-mark-gallery-thumbnai-content: '\f155';
+$images-item-mark-gallery-thumbnai-bg-color: get_admin_color( Green );
+
+$images-item-mark-invisible-content: '\f530';
+$images-item-mark-invisible-bg-color: get_admin_color( Red );
+
+$images-item-button-height: 28px;
+$images-item-button-bg-color: get_admin_color( Blue );
+$images-item-button-bg-color-hover: get_admin_color( Blue, 2 );
+$images-item-button-color: get_admin_color( White );
+
+$images-item-button-del-bg-color: get_admin_color( Red );
+$images-item-button-del-bg-color-hover: get_admin_color( Red, 2 );

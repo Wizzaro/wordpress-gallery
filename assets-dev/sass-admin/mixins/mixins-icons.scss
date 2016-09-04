@@ -1,0 +1,7 @@
+@mixin init-icons-classes($icons) {
+    @each $class, $iconSymbol in $icons {
+        .ic-#{$class}:before {
+          content: $iconSymbol;
+        }
+    }
+}

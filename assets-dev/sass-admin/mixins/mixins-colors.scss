@@ -1,0 +1,35 @@
+@mixin set-button-color($id, $name , $bgColor: false, $color: false, $bgHoverColor: false, $hoverColor: false) {
+    
+    $className: '.bt-col';
+    
+    @if $bgColor != false or $color != false {
+        #{$className}-#{$name}-#{$id} {
+            @if $bgColor != false {
+                background-color: $bgColor;
+            }
+            @if $color != false  {
+                color: $color;
+            }   
+        }
+    }    
+    
+    @if $bgHoverColor != false or $hoverColor != false {
+        #{$className}-#{$name}-#{$id}:hover {
+            @if $bgHoverColor != false {
+                background-color: $bgHoverColor;
+            }
+            @if $hoverColor != false  {
+                color: $hoverColor;
+            }   
+        }
+    }
+}
+
+@mixin set-link-color($id, $name, $color, $hoverColor) {
+    .link-col-#{$name}-#{$id} {
+        color: $color;
+        &:hover {
+            color: $hoverColor;
+        }
+    }
+}

@@ -1,0 +1,4 @@
+composer.phar
+composer.lock
+.sass-cache/*
+node_modules/*

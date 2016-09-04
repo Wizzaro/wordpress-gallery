@@ -1,0 +1,1 @@
+<img src="<?php echo esc_url( $view_data['urls']['url'] . $view_data['thumbnail']->name ); ?>" alt="<?php  echo mb_strlen( $view_data['thumbnail']->alt_text ) > 0 ? $view_data['thumbnail']->alt_text : $view_data['thumbnail']->name; ?>">

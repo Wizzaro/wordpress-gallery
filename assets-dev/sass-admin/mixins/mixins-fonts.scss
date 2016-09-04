@@ -1,0 +1,48 @@
+@mixin set-font-css($fontFamily, $fontWeight, $isItalic) {
+    font-family: #{$fontFamily}, Arial, Helvetica, sans-serif !important;
+    @if not $fontWeight {
+        font-weight: normal !important;
+    }
+    @else {
+        font-weight: #{$fontWeight} !important;
+    }
+    
+    @if $isItalic == true {
+        font-style: italic !important;
+    }
+    @else {
+        font-style: normal !important;
+    }
+}
+
+@mixin set-font-class($fontName, $fontFamily, $fontWeight: normal, $isItalic: false) {
+    .#{$fontName} {
+        @include set-font-css($fontFamily, $fontWeight, $isItalic);
+    }
+}
+
+@mixin init-font-classes() {
+    @each $class, $data in $fonts {
+        @include set-font-class($class, map_get($data, 'family'), map_get($data, 'weight'), map_get($data, 'italic'));
+    }
+}
+
+@mixin extend-font($fontName) {
+    $fontData: map_get($fonts, $fontName);
+    @include set-font-css(map_get($fontData, 'family'), map_get($fontData, 'weight'), map_get($fontData, 'italic'))
+}
+
+@mixin set-font-size($rem, $line-height: false) {
+    @include get-font-size($rem, $line-height);
+}
+
+@mixin get-font-size($rem, $line-height: false) {
+    @if not $line-height {
+        $line-height: $rem;
+    }
+    
+    font-size: round($site-default-font-size * $rem);
+    font-size: #{$rem}rem;
+    line-height: round($site-default-line-height * $line-height);
+    line-height: #{$line-height}rem;
+}

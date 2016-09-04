@@ -1,0 +1,60 @@
+#wizzaro-gal-open-uploader {
+    
+    .dashicons {
+        vertical-align: middle;
+        
+        &.dashicons-arrow-up-alt2 {
+            display: none;
+        }
+    }
+    
+    &.open .dashicons {
+        &.dashicons-arrow-down-alt2 {
+            display: none;
+        }
+        
+        &.dashicons-arrow-up-alt2 {
+            display: inline;
+        }
+    }
+}
+
+#wizzaro-gal-uploader {
+    
+    &.html-uploader {
+        #wizzaro-gal-plupload-upload-ui {
+            display: none;
+        }
+        
+        #wizzaro-gal-html-upload-ui {
+            display: block;
+        }
+    }
+    
+    .drag-drop #wizzaro-gal-drag-drop-area {
+        border: $uploader-drag-grop-area-border;
+        height: $uploader-drag-grop-area-height;
+    }
+    
+    .drag-over #wizzaro-gal-drag-drop-area {
+        border-color: $uploader-drag-grop-area-drag-over-border-color;
+    }
+}
+
+#wizzaro-gal-media-items {
+        
+    .media-item {
+        
+        border-left: $uploader-media-item-process-border-left;
+        
+        &.success {
+            border-left-color: $uploader-media-item-success-border-left-color;
+        }
+        
+        .pinkynail {
+            display: none;
+            max-width: inherit;
+        } 
+        
+    }
+}

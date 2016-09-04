@@ -1,0 +1,5 @@
+@function get_admin_color( $colorName, $shade: 1 ) {
+    $colorMap: map-get( $wordpress-admin, $colorName );
+    $result: map-get( $colorMap, $shade );
+    @return $result;
+}
