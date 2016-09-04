@@ -11,7 +11,7 @@ class Arrays extends AbstractSingleton {
         foreach ( $array2 as $key => &$value )
         {
             if ( is_array( $value ) && isset( $merged[$key] ) && is_array( $merged[$key] ) ) {
-                $merged[$key] = deepArrayMerge( $merged[$key], $value );
+                $merged[$key] = $this->deep_merge( $merged[$key], $value );
             } else if ( is_numeric( $key ) ) {
                  if ( ! in_array( $value, $merged ) )
                     $merged[] = $value;
