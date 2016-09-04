@@ -38,6 +38,7 @@ class Images extends AbstractPluginController {
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'set_thumbnail' ), array( $this, 'ajax_action_image_set_thumbnail' ) );
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_delete' ), array( $this, 'ajax_action_image_delete' ) );
         
+        add_action( 'post_edit_form_tag' , array( $this, 'action_post_edit_form_tag' ) );
         add_action( 'save_post', array( $this, 'reset_images_view_cache' ), 10, 2 );
     }
 
@@ -107,6 +108,13 @@ class Images extends AbstractPluginController {
             }
             
             wp_cache_set( 'wizzaro_gallery_images', $view , $post->post_type . '-' . $post->ID );
+        }
+    }
+
+    public function action_post_edit_form_tag() {
+        global $post;
+        if ( $post && in_array( $post->post_type, PluginConfig::get_instance()->get_galeries_post_types() ) ) {
+            echo ' enctype="multipart/form-data"';
         }
     }
     

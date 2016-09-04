@@ -145,7 +145,12 @@ class Images extends AbstractMetabox {
         if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
             return $post->ID;   
         }
-        
+            
+        //save image
+        if( $_FILES && is_array( $_FILES['wizzaro-gal-upload-image'] ) && ! is_array( $_FILES['wizzaro-gal-upload-image']['name'] ) ) {
+            ImagesService::get_instance()->upload_post_image( $_FILES['wizzaro-gal-upload-image'], $post );
+        }
+            
         //set all image visible on frontend
         ImagesService::get_instance()->set_all_post_image_visible( $post );
         

@@ -33,7 +33,7 @@
                 <label class="screen-reader-text" for="async-upload">
                     <?php _e( 'Upload', $view_data['languages_domain'] ); ?>
                 </label>
-                <input id="wizzaro-async-upload" type="file" name="wizzaro-async-upload[]" />
+                <input id="wizzaro-async-upload" type="file" name="wizzaro-gal-upload-image" />
             </p>
             <div class="clear"></div>
             <p class="wizzaro-gal-bypass">
