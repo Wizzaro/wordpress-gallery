@@ -38,27 +38,27 @@ abstract class AbstractConfig extends AbstractSingleton {
     }
     
     public function get_css_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/css/';
     }
     
     public function get_css_admin_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'css'. DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/css/admin/';
     }
     
     public function get_js_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/js/';
     }
     
     public function get_js_admin_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/js/admin/';
     }
     
     public function get_images_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/images/';
     }
     
     public function get_images_admin_url() {
-        return $this->get_dir_url() . 'assets' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR;
+        return $this->get_dir_url() . 'assets/images/admin/';
     }
     
     public function get_view_templates_path() {
