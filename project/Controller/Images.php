@@ -208,55 +208,61 @@ class Images extends AbstractPluginController {
                 throw new Exception( __( 'You are not allowed to edit this item. Has your session expired?', $languages_domain ) );
             }
 
+            if ( post_type_supports( $post->post_type, 'thumbnail' ) ) {
+                throw new Exception( __( 'This post supports a standard mechanism for adding thumbnails - use it if you want to define thumbnail for him', $languages_domain ) );
+            }
+
             $image = $image_service->get_post_image_by_id( $post->ID, Filter::get_instance()->filter_int( Encrypt::get_instance()->decryption(  $_POST['img_id'] ) ) );
             
             if ( ! $image ) {
                 throw new Exception( __( 'Image no exist. Has it been deleted already?', $languages_domain ) );
             }
-            
-            if ( ! update_post_meta( $post->ID, '_post_gallery_thumbnail_id',  $image->ID ) ) {
-                add_post_meta( $post->ID, '_post_gallery_thumbnail_id',  $image->ID, true);
-            }
-            
-            
-            $uploads_dir = $image_service->get_upload_dir( $image_service->get_gallery_dir( $post, false ) );
 
-            // Insert the attachment.
-            if ( ! copy( $uploads_dir['path'] . DIRECTORY_SEPARATOR . $image->name, $uploads_dir['path_gallery_thumbnail'] . DIRECTORY_SEPARATOR . $image->name ) ) {
-                throw new Exception( __( 'Error during set image as thumbnail.', $languages_domain ) );
-            }
-
-            $attachment = array(
-                'guid'           => $upload_dir['url_gallery_thumbnail'] . '/' . basename( $image->name ), 
-                'post_mime_type' => $image->mime_type,
-                'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $image->name ) ),
-                'post_content'   => '',
-                'post_status'    => 'private'
-            );
-
-            // Insert the attachment.
-            $attach_id = wp_insert_attachment( $attachment, ltrim( $uploads_dir['folder_gallery_thumbnail'] . '/' . $image->name, '/' ) );
-            
-            if ( $attach_id ) {
-                //metadata
-                $attach_data = wp_generate_attachment_metadata( $attach_id, $uploads_dir['path_gallery_thumbnail'] . DIRECTORY_SEPARATOR . $image->name );
-                wp_update_attachment_metadata( $attach_id, $attach_data );
-                
-                //change post status
-                $wpdb->update( $wpdb->posts, array( 'post_status' => 'w-gallery-noread' ), array( 'ID' => $attach_id ) );
-
-                //remove old attachment
-                $old_attachment_id =  get_post_thumbnail_id( $post->ID );
-                
-                if ( $old_attachment_id ) {
-                    wp_delete_attachment( $old_attachment_id, true );
+            if ( get_post_meta( $post->ID, '_post_gallery_thumbnail_id', true ) != $image->ID ) {
+                if ( ! update_post_meta( $post->ID, '_post_gallery_thumbnail_id',  $image->ID ) ) {
+                    add_post_meta( $post->ID, '_post_gallery_thumbnail_id',  $image->ID, true);
                 }
                 
-                //update post thumbnail
-                set_post_thumbnail( $post->ID, $attach_id );
                 
-            } else {
-                throw new Exception( __( 'Error during set image as thumbnail.', $languages_domain ) );
+                $uploads_dir = $image_service->get_upload_dir( $image_service->get_gallery_dir( $post, false ) );
+    
+                // Insert the attachment.
+                if ( ! copy( $uploads_dir['path'] . DIRECTORY_SEPARATOR . $image->name, $uploads_dir['path_gallery_thumbnail'] . DIRECTORY_SEPARATOR . $image->name ) ) {
+                    throw new Exception( __( 'Error during set image as thumbnail.', $languages_domain ) );
+                }
+    
+                $attachment = array(
+                    'guid'           => $upload_dir['url_gallery_thumbnail'] . '/' . basename( $image->name ), 
+                    'post_mime_type' => $image->mime_type,
+                    'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $image->name ) ),
+                    'post_content'   => '',
+                    'post_status'    => 'private'
+                );
+    
+                // Insert the attachment.
+                $attach_id = wp_insert_attachment( $attachment, ltrim( $uploads_dir['folder_gallery_thumbnail'] . '/' . $image->name, '/' ) );
+                
+                if ( $attach_id ) {
+                    //metadata
+                    $attach_data = wp_generate_attachment_metadata( $attach_id, $uploads_dir['path_gallery_thumbnail'] . DIRECTORY_SEPARATOR . $image->name );
+                    wp_update_attachment_metadata( $attach_id, $attach_data );
+                    
+                    //change post status
+                    $wpdb->update( $wpdb->posts, array( 'post_status' => 'w-gallery-noread' ), array( 'ID' => $attach_id ) );
+    
+                    //remove old attachment
+                    $old_attachment_id =  get_post_thumbnail_id( $post->ID );
+                    
+                    if ( $old_attachment_id ) {
+                        wp_delete_attachment( $old_attachment_id, true );
+                    }
+                    
+                    //update post thumbnail
+                    set_post_thumbnail( $post->ID, $attach_id );
+                    
+                } else {
+                    throw new Exception( __( 'Error during set image as thumbnail.', $languages_domain ) );
+                }
             }
             
             $response['status'] = true;

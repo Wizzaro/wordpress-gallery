@@ -12,7 +12,7 @@
             <div id="wgi-wrapper">
                 <?php
                 foreach ( $view_data['images'] as $image ) {
-                    $thumbnail_class = ! strcasecmp( $view_data['thumbnail_id'], $image->ID ) ? ' gallery-thumb' : '';
+                    $thumbnail_class = ( ! strcasecmp( $view_data['thumbnail_id'], $image->ID ) && ! $view_data['support_thumbnail'] ) ? ' gallery-thumb' : '';
                     $visible_class = strcasecmp( $image->visible, '1' ) ? ' invisible' : '';
                     ?>
                     <div class="wgi-image-container<?php echo $thumbnail_class . $visible_class; ?>">
@@ -21,10 +21,15 @@
                                 <img src="<?php echo esc_url( $view_data['urls']['url_tumbnail'] . $image->name ); ?>" >
                             </div>
                             <div class="wgi-i-butons">
-                                <a class="wgi-i-b-button wgi-i-b-set-thumbnail" href="#" title="<?php  echo $view_data['buttons_titles']['set_thumbnail'] ?>">
-                                    <span class="dashicons dashicons-star-filled"></span>
-                                </a>
-                                <?php /* 
+                                <?php
+                                if ( ! $view_data['support_thumbnail'] ) {
+                                    ?>
+                                    <a class="wgi-i-b-button wgi-i-b-set-thumbnail" href="#" title="<?php  echo $view_data['buttons_titles']['set_thumbnail'] ?>">
+                                        <span class="dashicons dashicons-star-filled"></span>
+                                    </a>
+                                <?php
+                                } 
+                                /* 
                                 <a class="wgi-i-b-button wgi-i-b-preview hide-if-no-js" href="#" title="<?php  echo $view_data['buttons_titles']['preview'] ?>">
                                     <span class="dashicons dashicons-search"></span>
                                 </a> 
@@ -51,9 +56,15 @@
         <p>
             <strong><?php _e( 'Markings on the picture:', $view_data['languages_domain'] ); ?></strong>
             <ul>
-                <li>
-                    <span class="dashicons dashicons-star-filled"></span> - <?php _e( 'Gallery thumbnail.', $view_data['languages_domain'] ); ?>
-                </li>
+                <?php
+                if ( ! $view_data['support_thumbnail'] ) {
+                    ?>
+                    <li>
+                        <span class="dashicons dashicons-star-filled"></span> - <?php _e( 'Gallery thumbnail.', $view_data['languages_domain'] ); ?>
+                    </li>
+                    <?php
+                }
+                ?>
                 <li>
                     <span class="dashicons dashicons-hidden"></span> - <?php _e( 'Image is not visible on gallery page. When you save gallery then will be visible.', $view_data['languages_domain'] ); ?>
                 </li>
@@ -62,10 +73,14 @@
         <p>
             <strong><?php _e( 'Buttons:', $view_data['languages_domain'] ); ?></strong>
             <ul>
-                <li>
-                    <span class="dashicons dashicons-star-filled"></span> - <?php  echo $view_data['buttons_titles']['set_thumbnail'] ?>.
-                </li>
                 <?php
+                if ( ! $view_data['support_thumbnail'] ) {
+                    ?>
+                    <li>
+                        <span class="dashicons dashicons-star-filled"></span> - <?php  echo $view_data['buttons_titles']['set_thumbnail'] ?>.
+                    </li>
+                    <?php
+                }
                 /*
                 <li>
                     <span class="dashicons dashicons-search"></span> - <?php  echo $view_data['buttons_titles']['preview'] ?>.

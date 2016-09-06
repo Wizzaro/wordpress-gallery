@@ -45,33 +45,35 @@ Wizzaro.Plugins.Gallery.v1.ImageItem = function( img_obj, config, ajax_data ) {
         event.preventDefault();
         event.stopPropagation();
         
-        _show_loader();
-
-        jQuery.ajax({
-            url: ajaxurl,
-            type: 'post',
-            data: {
-                action: _ajax_data.thumbnail.action,
-                thumbnail_nonce: _ajax_data.thumbnail.nonce,
-                post_id: _ajax_data.post_id,
-                img_id: _image_id
-            },
-            dataType: 'json',
-            success: function( data ) {
-                if ( jQuery.type( data ) === 'object' ) {
-                    if ( data.status == '1' ) {
-                        _set_thumbnai_success();
+        if ( ! _img_obj.hasClass( _config.thumbnail_class ) ) {
+            _show_loader();
+    
+            jQuery.ajax({
+                url: ajaxurl,
+                type: 'post',
+                data: {
+                    action: _ajax_data.thumbnail.action,
+                    thumbnail_nonce: _ajax_data.thumbnail.nonce,
+                    post_id: _ajax_data.post_id,
+                    img_id: _image_id
+                },
+                dataType: 'json',
+                success: function( data ) {
+                    if ( jQuery.type( data ) === 'object' ) {
+                        if ( data.status == '1' ) {
+                            _set_thumbnai_success();
+                        } else {
+                            _ajax_error( data.message );
+                        }
                     } else {
-                        _ajax_error( data.message );
+                        _ajax_error( _ajax_data.thumbnail.l10n.error );
                     }
-                } else {
-                    _ajax_error( _ajax_data.thumbnail.l10n.error );
+                },
+                error: function() {
+                    _ajax_error(  _ajax_data.thumbnail.l10n.error );
                 }
-            },
-            error: function() {
-                _ajax_error(  _ajax_data.thumbnail.l10n.error );
-            }
-        });
+            });
+        }
         
         return false;
     }

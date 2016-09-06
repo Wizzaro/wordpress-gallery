@@ -37,15 +37,18 @@ Wizzaro.Plugins.Gallery.v1.Images = function( config ) {
         
         var new_img_obj = jQuery( document.createElement( 'div' ) ).addClass( _config.image.container_class ).addClass( _config.image.invisible_class );
         
-        new_img_obj.html( '' +
+        var image_html = '' +
             '<div class="wgi-image-wrapper">' +
                 '<div class="wgi-i-image">' +
                     '<img src="' + thumbnail_url + '" >' +
                 '</div>' +
-                '<div class="wgi-i-butons">' +
-                    '<a class="wgi-i-b-button ' + _config.image.thumbnail.bt_class + '" href="#" title="' + _ajax_data.l10n.buttons_titles.set_thumbnail  + '">' +
-                        '<span class="dashicons dashicons-star-filled"></span>' +
-                    '</a>' +
+                '<div class="wgi-i-butons">';
+                
+        if ( _ajax_data.support_thumbnail == '0' ) {
+            image_html += '<a class="wgi-i-b-button ' + _config.image.thumbnail.bt_class + '" href="#" title="' + _ajax_data.l10n.buttons_titles.set_thumbnail  + '">' +
+                '<span class="dashicons dashicons-star-filled"></span>' +
+            '</a>';
+        }
                     /*
                     '<a class="wgi-i-b-button ' + _config.image.preview.bt_class + '" href="#" title="' + _ajax_data.l10n.buttons_titles.preview  + '">' +
                         '<span class="dashicons dashicons-search"></span>' +
@@ -54,12 +57,14 @@ Wizzaro.Plugins.Gallery.v1.Images = function( config ) {
                         '<span class="dashicons dashicons-edit"></span>' +
                     '</a>' +
                     */
-                    '<a class="wgi-i-b-button ' + _config.image.delete.bt_class + '" href="#" title="' + _ajax_data.l10n.buttons_titles.delete  + '">' +
+        image_html += '<a class="wgi-i-b-button ' + _config.image.delete.bt_class + '" href="#" title="' + _ajax_data.l10n.buttons_titles.delete  + '">' +
                         '<span class="dashicons dashicons-trash"></span>' +
                     '</a>' +
                 '</div>' +
                 '<input class="' + _config.image.image_id_elem_class + '" type="hidden" name="wizzaro-gal-images[]" value="' + id + '">' +
-            '</div>' );
+            '</div>';
+        
+        new_img_obj.html( image_html );
         
         new_img_obj.hide();
         

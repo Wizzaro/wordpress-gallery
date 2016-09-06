@@ -100,6 +100,7 @@ class Images extends AbstractMetabox {
             
         $images_init = array(
             'post_id' => $post_id_encrypt,
+            'support_thumbnail' => post_type_supports( $post->post_type, 'thumbnail' ) ? '1' : '0',
             'thumbnail' => array(
                 'action' => $plugin_config->get( 'ajax_actions', 'set_thumbnail' ),
                 'nonce' => wp_create_nonce( 'wizzaro_gallery_images_set_thumbnail_nonce' ),
@@ -130,6 +131,7 @@ class Images extends AbstractMetabox {
             'languages_domain' => $languages_domain,
             'encrypt_instance' => Encrypt::get_instance(),
             'urls' => $images_service->get_gallery_url( $images_service->get_gallery_dir( $post, false ) ),
+            'support_thumbnail' => post_type_supports( $post->post_type, 'thumbnail' ),
             'thumbnail_id' => get_post_meta( $post->ID, '_post_gallery_thumbnail_id', true ),
             'buttons_titles' => $buttons_titles,
             'images' => $images_service->get_post_images( $post )

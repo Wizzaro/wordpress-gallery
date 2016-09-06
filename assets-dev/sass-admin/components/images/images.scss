@@ -140,5 +140,13 @@
                 }
             }
         }
+        
+        &.gallery-thumb .wgi-image-wrapper .wgi-i-butons .wgi-i-b-set-thumbnail {
+            background: $images-item-button-bg-disabled-color;
+            
+            &:hover {
+                background: $images-item-button-bg-disabled-color;
+            }
+        }
     }
 }
