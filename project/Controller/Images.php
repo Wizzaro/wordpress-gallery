@@ -62,6 +62,7 @@ class Images extends AbstractPluginController {
                     $service = ImagesService::get_instance();
                     
                     $view_data = array (
+                        'post' => $post,
                         'languages_domain' => $this->_config->get( 'languages', 'domain' ),
                         'urls' => $service->get_gallery_url( $service->get_gallery_dir( $post, false ) ),
                         'images' => $service->get_post_images( $post, true )

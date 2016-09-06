@@ -28,7 +28,7 @@ if ( count( $view_data['images'] ) > 0 ) {
         </div>
     </div>
     <?php
-} else {
+} elseif ( apply_filters( 'wizzaro_galley_display_empty_info', true, $view_data['post'] ) ) {
     ?>
     <p class="no-results">
         <?php _e( 'No images in gallery.', $view_data['languages_domain'] ); ?>
