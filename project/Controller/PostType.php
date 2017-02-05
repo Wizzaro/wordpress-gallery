@@ -43,6 +43,7 @@ class PostType extends AbstractPluginController {
         $default_private_post_type_args = array_merge( $default_public_post_type_args, array(
             'public'              => false,
             'has_archive'         => false,
+            'supports'            => array( 'title', 'revisions' ),
             'show_in_nav_menus'   => false,
             'exclude_from_search' => false,
             'publicly_queryable'  => false,
@@ -101,7 +102,7 @@ class PostType extends AbstractPluginController {
             }
         }
 
-        do_action( 'wizzaro_partners_after_register_post_types', array_keys( $post_types_settings ) );
+        do_action( 'wizzaro_gallery_after_register_post_types', $post_types_settings );
 
         flush_rewrite_rules();
 

@@ -28,6 +28,9 @@ return array(
             'set_thumbnail' => 'wizzaro_gallery_set_thumbnail',
             'image_delete' => 'wizzaro_gallery_image_delete'
         ),
+        'shortcode' => array(
+            'default_name' => 'wizzaro-gallery'
+        ),
         'default_post_type' => array(
             'post_type' => 'wizzaro-gallery',
             'slug' => 'galleries',
@@ -59,7 +62,7 @@ return array(
                     'labels' => array(
                         'name'                  => __( 'Gallery Categories ', 'wizzaro-gallery-v1' ),
                         'singular_name'         => __( 'Gallery Category ', 'wizzaro-gallery-v1' ),
-                        'all_items'             => __( 'All Categories' ), 
+                        'all_items'             => __( 'All Categories' ),
                         'edit_item'             => __( 'Edit Category' ),
                         'view_item'             => __( 'View Category' ),
                         'update_item'           => __( 'Update Category' ),

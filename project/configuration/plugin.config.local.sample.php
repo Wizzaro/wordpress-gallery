@@ -97,6 +97,12 @@ return array(
              * Required: no
              */
             'menu_position' => 5,
+            /*
+             * Define shordcode name for post type which use for build shordcode string ex. [defined-shordcode-name id="gallery_post_id"]
+             * use boolean true | false or string with shordcoe name (true = default shordcode name)
+             * Required no
+             */
+            'shordcode' => 'shordcode-name'
         ),
         // ... - second post type
     )
