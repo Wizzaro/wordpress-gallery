@@ -4,18 +4,18 @@ namespace Wizzaro\Gallery\v1\Controller;
 use Wizzaro\WPFramework\v1\Controller\AbstractPluginController;
 
 class PostType extends AbstractPluginController {
-    
+
     public function init() {
         add_action( 'init', array( $this, 'register_gallery' ), 0 );
     }
-    
+
     public function init_front() {
         add_action( 'pre_get_posts', array( $this, 'filter_add_gallery_to_posts_list' ) );
     }
-    
+
     public function register_gallery() {
         $languages_domain = $this->_config->get( 'languages', 'domain' );
-        
+
         //register post status
         register_post_status( 'w-gallery-noread', array(
             'public' => false,
@@ -23,7 +23,7 @@ class PostType extends AbstractPluginController {
         ));
 
         //register post type
-        $default_post_type_args = array (
+        $default_public_post_type_args = array (
             'public'              => true,
             'has_archive'         => true,
             'supports'            => array( 'title', 'editor', 'excerpt', 'revisions' ),
@@ -39,63 +39,78 @@ class PostType extends AbstractPluginController {
             'publicly_queryable'  => true,
             'capability_type'     => 'post',
         );
-        
+
+        $default_private_post_type_args = array_merge( $default_public_post_type_args, array(
+            'public'              => false,
+            'has_archive'         => false,
+            'show_in_nav_menus'   => false,
+            'exclude_from_search' => false,
+            'publicly_queryable'  => false,
+            'rewrite'             => false,
+            'query_var'           => false,
+        ) );
+
         $post_types_settings = array();
-        
+
         if (  $this->_config->get_group('use_default_post_type', true ) ) {
             $default_post_type_setting = $this->_config->get_group( 'default_post_type' );
             $post_types_settings[$default_post_type_setting['post_type']] = $default_post_type_setting;
         }
-        
+
         $post_types_settings = array_merge( $post_types_settings, $this->_config->get_group( 'post_types', array() ) );
-        
+
         do_action( 'wizzaro_gallery_before_register_post_types' );
-        
+
         foreach ( $post_types_settings as $post_type => $post_type_settings ) {
-            
-            $args = $default_post_type_args;
-                
-            if ( array_key_exists( 'slug', $post_type_settings ) ) {
-                $args['rewrite'] = array( 'slug' => $post_type_settings['slug'] );
+
+            if ( ! array_key_exists( 'public', $post_type_settings ) || $post_type_settings['public'] === true ) {
+                $args = $default_public_post_type_args;
+
+                if ( array_key_exists( 'slug', $post_type_settings ) ) {
+                    $args['rewrite'] = array( 'slug' => $post_type_settings['slug'] );
+                }
+
+            } else {
+                $args = $default_private_post_type_args;
             }
-            
+
             $args['labels'] = $post_type_settings['labels'];
-            
+
             if ( array_key_exists( 'admin_menu_icon', $post_type_settings ) ) {
                 $args['menu_icon'] = $post_type_settings['admin_menu_icon'];
             }
-            
+
             if ( array_key_exists( 'menu_position', $post_type_settings ) ) {
                 $args['menu_position'] = $post_type_settings['menu_position'];
             }
-            
+
             if ( array_key_exists( 'taxonomies', $post_type_settings ) ) {
                 $args['taxonomies'] = array_keys( $post_type_settings['taxonomies'] );
-                
+
                 foreach ( $post_type_settings['taxonomies'] as $tax_name => $tax_settings ) {
                     $this->register_taxonomy( $tax_name, $post_type, $tax_settings );
                 }
             }
 
             register_post_type( $post_type, $args );
-            
+
             $this->_config->set_post_type( $post_type );
-            
-            if ( $post_type_settings['add_to_main_query'] === true ) {
+
+            if ( $args['public'] === true && $post_type_settings['add_to_main_query'] === true ) {
                 $this->_config->set_main_query_post_type( $post_type );
             }
         }
-        
+
         do_action( 'wizzaro_partners_after_register_post_types', array_keys( $post_types_settings ) );
-        
+
         flush_rewrite_rules();
-        
+
         do_action( 'registered_taxonomy_wizzaro_gallery_category', $taxonomy_args );
         do_action( 'registered_post_type_wizzaro_gallery', $post_type_args );
     }
 
     private function register_taxonomy( $taxonomy, $object_type, array $args) {
-        
+
         $taxonomy_args = array(
             'labels'              => $args['labels'],
             'public'              => true,
@@ -106,15 +121,15 @@ class PostType extends AbstractPluginController {
             'show_admin_column'   => true,
             'hierarchical'        => true,
         );
-        
+
         if ( array_key_exists( 'slug', $args) ) {
             $taxonomy_args['rewrite'] = array( 'slug' => $args['slug'] );
         }
-        
+
         if ( array_key_exists( 'hierarchical', $args) ) {
             $taxonomy_args['hierarchical'] = $args['hierarchical'];
         }
-        
+
         register_taxonomy( $taxonomy, $object_type, $taxonomy_args );
     }
 

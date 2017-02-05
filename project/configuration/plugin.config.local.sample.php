@@ -46,7 +46,7 @@ return array(
                 'labels' => array(
                     'name'                  => __( 'Gallery Categories ', 'wizzaro-gallery-v1' ),
                     'singular_name'         => __( 'Gallery Category ', 'wizzaro-gallery-v1' ),
-                    'all_items'             => __( 'All Categories' ), 
+                    'all_items'             => __( 'All Categories' ),
                     'edit_item'             => __( 'Edit Category' ),
                     'view_item'             => __( 'View Category' ),
                     'update_item'           => __( 'Update Category' ),
@@ -68,13 +68,22 @@ return array(
     'post_types' => array(
         'custom_post_type_key' => array(
             /*
+             * Inform about visibility of post type
+             * Required: no
+             */
+            'public' => true,
+            /*
+             * Required: yes
+             */
+            'post_type' => 'custom_post_type_key'
+            /*
              * Customize the permalink structure slug. Default is array key ("custom_post_type_key" - in this example)
              * Required: no
              */
             'slug' => 'your_slug',
             /*
              * An array of labels for this post type defined by wordpress standard.
-             * More info: https://codex.wordpress.org/Function_Reference/register_post_type#labels (section "Arguments" -> "labels") 
+             * More info: https://codex.wordpress.org/Function_Reference/register_post_type#labels (section "Arguments" -> "labels")
              * Required: yes
              */
             'labels'=> array(),
