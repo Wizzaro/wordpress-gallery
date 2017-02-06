@@ -4,7 +4,7 @@
         if ( count( $view_data['images'] ) <= 0 ) {
             ?>
             <p id="wg-no-images">
-                <?php _e( 'In this gallery has no photos. Upload something.', $view_data['languages_domain'] ); ?>    
+                <?php _e( 'In this gallery has no photos. Upload something.', $view_data['languages_domain'] ); ?>
             </p>
             <?php
         } else {
@@ -17,7 +17,7 @@
                     ?>
                     <div class="wgi-image-container<?php echo $thumbnail_class . $visible_class; ?>">
                         <div class="wgi-image-wrapper">
-                            <div class="wgi-i-image">
+                            <div class="wgi-i-image" data-alt-text="<?php echo esc_html( $image->alt_text ); ?>">
                                 <img src="<?php echo esc_url( $view_data['urls']['url_tumbnail'] . $image->name ); ?>" >
                             </div>
                             <div class="wgi-i-butons">
@@ -28,15 +28,15 @@
                                         <span class="dashicons dashicons-star-filled"></span>
                                     </a>
                                 <?php
-                                } 
-                                /* 
+                                }
+                                /*
                                 <a class="wgi-i-b-button wgi-i-b-preview hide-if-no-js" href="#" title="<?php  echo $view_data['buttons_titles']['preview'] ?>">
                                     <span class="dashicons dashicons-search"></span>
-                                </a> 
+                                </a>
+                                */ ?>
                                 <a class="wgi-i-b-button wgi-i-b-edit" href="#" title="<?php  echo $view_data['buttons_titles']['edit'] ?>">
                                     <span class="dashicons dashicons-edit"></span>
-                                </a> 
-                                 */ ?>
+                                </a>
                                 <a class="wgi-i-b-button wgi-i-b-del" href="#" title="<?php  echo $view_data['buttons_titles']['set_thumbnail'] ?>">
                                     <span class="dashicons dashicons-trash"></span>
                                 </a>
@@ -84,10 +84,10 @@
                 /*
                 <li>
                     <span class="dashicons dashicons-search"></span> - <?php  echo $view_data['buttons_titles']['preview'] ?>.
-                </li>
+                </li> */ ?>
                 <li>
                     <span class="dashicons dashicons-edit"></span> - <?php  echo $view_data['buttons_titles']['edit'] ?>.
-                </li> */?>
+                </li>
                 <li>
                     <span class="dashicons dashicons-trash"></span> - <?php  echo $view_data['buttons_titles']['delete'] ?>.
                 </li>

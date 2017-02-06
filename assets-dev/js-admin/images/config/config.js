@@ -14,6 +14,7 @@ Wizzaro.Plugins.Gallery.v1.ImagesConfig = Wizzaro.Plugins.Gallery.v1.ImagesConfi
     image: {
         container_class: 'wgi-image-container',
         image_id_elem_class: 'wgi-i-image-id',
+        image_container_class: 'wgi-i-image',
         loader_class: 'loading',
         invisible_class: 'invisible',
         thumbnail_class: 'gallery-thumb',
@@ -25,7 +26,8 @@ Wizzaro.Plugins.Gallery.v1.ImagesConfig = Wizzaro.Plugins.Gallery.v1.ImagesConfi
             bt_class: 'wgi-i-b-preview'
         },
         edit: {
-            bt_class: 'wgi-i-b-edit'
+            bt_class: 'wgi-i-b-edit',
+            editor: Wizzaro.Plugins.Gallery.v1.ImageEditor
         },
         delete: {
             bt_class: 'wgi-i-b-del'

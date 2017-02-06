@@ -39,6 +39,7 @@ class Images extends AbstractPluginController {
 
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_upload' ), array( $this, 'ajax_action_image_upload' ) );
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'set_thumbnail' ), array( $this, 'ajax_action_image_set_thumbnail' ) );
+        add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_edit' ), array( $this, 'ajax_action_image_edit' ) );
         add_action( 'wp_ajax_' . $plugin_config->get( 'ajax_actions', 'image_delete' ), array( $this, 'ajax_action_image_delete' ) );
 
         add_action( 'post_edit_form_tag' , array( $this, 'action_post_edit_form_tag' ) );
@@ -299,6 +300,51 @@ class Images extends AbstractPluginController {
                 }
             }
 
+            $response['status'] = true;
+
+        } catch(Exception $e) {
+            $response['message'] = $e->getMessage();
+        }
+
+        wp_send_json( $response );
+        die();
+    }
+
+    public function ajax_action_image_edit() {
+        $response = array( 'status' => false );
+
+        $languages_domain = $this->_config->get( 'languages', 'domain' );
+
+        try {
+            if(
+                ! is_admin() ||
+                ! isset( $_POST['edit_nonce'] ) ||
+                ! wp_verify_nonce( $_POST['edit_nonce'], 'wizzaro_gallery_images_edit_nonce' ) ||
+                ! isset( $_POST['post_id'] ) ||
+                ! isset( $_POST['img_id'] ) ||
+                ! isset( $_POST['img_data'] )
+            ) {
+                throw new Exception( __( 'Error during deleting image.', $languages_domain ) );
+            }
+
+            //check if post exist and current user can edit post
+            $post = get_post( Encrypt::get_instance()->decryption( Filter::get_instance()->filter_text( $_POST['post_id'] ) ) );
+
+            if ( ! $post ) {
+                throw new Exception( __( 'Unknown galley.', $languages_domain ) );
+            }
+
+            if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+                throw new Exception( __( 'You are not allowed to delete this item. Has your session expired?', $languages_domain ) );
+            }
+
+            $result = ImagesService::get_instance()->edit_post_image_data( $post, Filter::get_instance()->filter_int( Encrypt::get_instance()->decryption(  $_POST['img_id'] ) ), $_POST['img_data'] );
+
+            if ( isset( $result['error'] ) ) {
+                throw new Exception( $result['error'] );
+            }
+
+            $response['data'] = $result;
             $response['status'] = true;
 
         } catch(Exception $e) {

@@ -1,53 +1,62 @@
 Wizzaro.namespace('Plugins.Gallery.v1');
 Wizzaro.Plugins.Gallery.v1.ImageItem = function( img_obj, config, ajax_data ) {
-    
+
     var _that = this;
-    
+
     var _img_obj = jQuery( img_obj ),
         _config = config,
         _ajax_data = ajax_data;
-    
+
     var _image_id = _img_obj.find( '.' + _config.image_id_elem_class ).val();
-    
+    var _image_src = _img_obj.find( '.' + _config.image_container_class + ' img' ).attr( 'src' );
+    var _image_alt_text = _img_obj.find( '.' + _config.image_container_class ).attr( 'data-alt-text' );
+
+    var _editor = new _config.edit.editor( _ajax_data );
+
+    jQuery( _editor ).on( 'success_edit', editor_success_edit );
+
     //----------------------------------------------------------------------------------------------------
     // Init imgage
-    
+
     //init set as thumbnail button
     _img_obj.find( '.' + _config.thumbnail.bt_class ).on( 'click', _ajax_set_as_thumbnail );
-    
+
+    //init edit image button
+    _img_obj.find( '.' + _config.edit.bt_class ).on( 'click', _open_editor );
+
     //init delete image button
     _img_obj.find( '.' + _config.delete.bt_class ).on( 'click', _ajax_delete_image );
-    
-    
+
+
     //----------------------------------------------------------------------------------------------------
     // API functions
-    
+
     this.get_img_id = function() {
         var id = _img_obj;
         return id;
     };
-    
+
     //----------------------------------------------------------------------------------------------------
     // Loader functions
-    
+
     function _show_loader() {
         _img_obj.addClass( _config.loader_class );
     }
-    
+
     function _hide_loader() {
         _img_obj.removeClass( _config.loader_class );
     }
-    
+
     //----------------------------------------------------------------------------------------------------
     // Thumbnail functions
-    
+
     function _ajax_set_as_thumbnail( event ) {
         event.preventDefault();
         event.stopPropagation();
-        
+
         if ( ! _img_obj.hasClass( _config.thumbnail_class ) ) {
             _show_loader();
-    
+
             jQuery.ajax({
                 url: ajaxurl,
                 type: 'post',
@@ -74,26 +83,48 @@ Wizzaro.Plugins.Gallery.v1.ImageItem = function( img_obj, config, ajax_data ) {
                 }
             });
         }
-        
+
         return false;
     }
-    
+
     function _set_thumbnai_success() {
         _img_obj.addClass( _config.thumbnail_class );
         _hide_loader();
         jQuery( _that ).trigger( 'set_as_thumbnail', _img_obj );
     }
-    
+
+    //----------------------------------------------------------------------------------------------------
+    // Editing functions
+    function _open_editor( event ) {
+        event.preventDefault();
+        event.stopPropagation();
+        _editor.open( {
+            image: {
+                id: _image_id,
+                src: _image_src
+            },
+            data: {
+                alt_text: _image_alt_text
+            }
+        } );
+    }
+
+    function editor_success_edit( event, image_data ) {
+        if ( image_data.image.id === _image_id ) {
+            _image_alt_text = image_data.data.alt_text;
+        }
+    }
+
     //----------------------------------------------------------------------------------------------------
     // Deleting functions
-    
+
     function _ajax_delete_image( event ) {
         event.preventDefault();
         event.stopPropagation();
-        
+
         if ( window.confirm( _wpMediaViewsL10n.warnDelete ) ) {
              _show_loader();
-            
+
             jQuery.ajax({
                 url: ajaxurl,
                 type: 'post',
@@ -120,22 +151,22 @@ Wizzaro.Plugins.Gallery.v1.ImageItem = function( img_obj, config, ajax_data ) {
                 }
             });
         }
-        
+
         return false;
     }
-    
+
     function _delete_success() {
         _img_obj.hide( _config.visible_toogle_time );
-        
+
         setTimeout( function() {
             _img_obj.remove();
             jQuery( _that ).trigger( 'delete', _that );
         }, _config.visible_toogle_time );
     }
-    
+
     //----------------------------------------------------------------------------------------------------
     // Helper functions
-    
+
     function _ajax_error( message ) {
         alert( message );
         _hide_loader();

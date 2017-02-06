@@ -26,6 +26,7 @@ return array(
         'ajax_actions' => array(
             'image_upload' => 'wizzaro_gallery_image_upload',
             'set_thumbnail' => 'wizzaro_gallery_set_thumbnail',
+            'image_edit' => 'wizzaro_gallery_image_edit',
             'image_delete' => 'wizzaro_gallery_image_delete'
         ),
         'shortcode' => array(

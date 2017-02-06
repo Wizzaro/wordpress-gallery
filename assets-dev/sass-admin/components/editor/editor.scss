@@ -1,0 +1,97 @@
+.wizzaro-gal-editor {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 160000;
+    width: 100%;
+    height: 100%;
+    background: rgba( #000000, 0.7 );
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .wge-wrapper {
+        display: block;
+        overflow: auto;
+        width: 100%;
+        max-height: 100%;
+        margin: auto;
+        padding: 30px;
+        -webkit-font-smoothing: subpixel-antialiased;
+        font-smoothing: subpixel-antialiased;
+    }
+
+    .wge-content {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: auto;
+        max-width: 800px;
+        max-height: 100%;
+        background: #ffffff;
+        margin: auto;
+        @include box-shadow( 0 5px 15px rgba(0,0,0,0.7));
+    }
+
+    .wge-loader {
+        display: none;
+        visibility: visible !important;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin:auto;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        background-position: center;
+        z-index: 9999;
+    }
+
+    .wge-col {
+        display: block;
+        float: left;
+        width: 100%;
+        padding: 0 1em;
+
+        &.wge-col-50 {
+            width: 50%;
+
+            @media (max-width: 600px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .wge-image {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+    }
+
+    .wge-action-buttons {
+        border-top: 1px solid #ddd;
+        background: #fcfcfc;
+        text-align: right;
+
+        .button {
+            vertical-align: middle;
+        }
+    }
+}
