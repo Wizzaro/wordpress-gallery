@@ -76,7 +76,8 @@ return array(
                         'not_found'             => __( 'No categories found.' )
                     )
                 )
-            )
+            ),
+            'shordcode' => true
         )
     )
 );
