@@ -4,7 +4,8 @@ namespace Wizzaro\Gallery\v1;
 return array(
     'controllers' => array(
         'Wizzaro\Gallery\v1\Controller\PostType',
-        'Wizzaro\Gallery\v1\Controller\Images'
+        'Wizzaro\Gallery\v1\Controller\Images',
+        'Wizzaro\Gallery\v1\Controller\Shortcode'
     ),
     'configuration' => array(
         'path' => array(

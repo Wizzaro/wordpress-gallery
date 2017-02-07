@@ -12,7 +12,6 @@ use Wizzaro\Gallery\v1\Setting\OptionFormTab\Image as ImageOptionFormTab;
 use Wizzaro\Gallery\v1\Option\Image as ImageOption;
 use Wizzaro\Gallery\v1\Model\Table\Images as ImagesDBTable;
 use Wizzaro\Gallery\v1\Component\Metabox\Images as ImagesMetabox;
-use Wizzaro\Gallery\v1\Component\Metabox\Shortcode as ShortcodeMetabox;
 use Wizzaro\Gallery\v1\Service\Images as ImagesService;
 
 use \Exception;
@@ -30,7 +29,6 @@ class Images extends AbstractPluginController {
 
         new ImageOptionFormTab( SettingsPage::get_instance(), ImageOption::get_instance() );
         ImagesMetabox::create();
-        ShortcodeMetabox::create();
 
         add_action( 'admin_enqueue_scripts', array( $this, 'action_enqueue_gallery_style' ) );
         add_action( 'before_delete_post', array( $this, 'action_delete_gallery_folder' ) );
