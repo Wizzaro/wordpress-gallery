@@ -36,7 +36,7 @@ class Images extends AbstractModel {
         ')ENGINE = InnoDB;';
 
         if ( ! $wpdb->query( $query ) ) {
-            return __( 'No add "' . $this->_table_name . '" table to database', PluginConfig::get_instance()->get( 'languages', 'domain' ) );
+            return sprintf ( __( 'No add "%s" table to database', PluginConfig::get_instance()->get( 'languages', 'domain' ) ), $this->_table_name );
         };
 
         return true;
