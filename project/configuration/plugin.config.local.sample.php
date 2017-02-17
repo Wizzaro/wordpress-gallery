@@ -17,28 +17,31 @@ return array(
      */
     'default_post_type' => array(
         'post_type' => 'wizzaro-gallery',
-        'slug' => 'galleries',
-        'labels'=> array(
-            'name'                  => __( 'Galeries', 'wizzaro-gallery-v1' ),
-            'singular_name'         => __( 'Gallery', 'wizzaro-gallery-v1' ),
-            'add_new'               => __( 'Add Gallery', 'wizzaro-gallery-v1' ),
-            'add_new_item'          => __( 'Add New Gallery', 'wizzaro-gallery-v1' ),
-            'edit'                  => __( 'Edit Gallery', 'wizzaro-gallery-v1' ),
-            'edit_item'             => __( 'Edit Gallery', 'wizzaro-gallery-v1' ),
-            'new_item'              => __( 'New Gallery', 'wizzaro-gallery-v1' ),
-            'view_item'             => __( 'View Gallery', 'wizzaro-gallery-v1' ),
-            'search_items'          => __( 'Search Galleries', 'wizzaro-gallery-v1' ),
-            'not_found'             => __( 'No Galeries found', 'wizzaro-gallery-v1' ),
-            'not_found_in_trash'    => __( 'No Galeries found in trash', 'wizzaro-gallery-v1' ),
-            'all_items'             => __( 'All Galleries', 'wizzaro-gallery-v1' ),
-            'archives'              => __( 'Galleries Archives', 'wizzaro-gallery-v1' ),
-            'insert_into_item'      => __( 'Insert into gallery', 'wizzaro-gallery-v1' ),
-            'uploaded_to_this_item' => __( 'Uploaded to this gallery', 'wizzaro-gallery-v1' ),
-            'menu_name'             => __( 'Galeries', 'wizzaro-gallery-v1'),
+        'args' => array(
+            'public' => true,
+            'labels'=> array(
+                'name'                  => __( 'Galeries', 'wizzaro-gallery-v1' ),
+                'singular_name'         => __( 'Gallery', 'wizzaro-gallery-v1' ),
+                'add_new'               => __( 'Add Gallery', 'wizzaro-gallery-v1' ),
+                'add_new_item'          => __( 'Add New Gallery', 'wizzaro-gallery-v1' ),
+                'edit'                  => __( 'Edit Gallery', 'wizzaro-gallery-v1' ),
+                'edit_item'             => __( 'Edit Gallery', 'wizzaro-gallery-v1' ),
+                'new_item'              => __( 'New Gallery', 'wizzaro-gallery-v1' ),
+                'view_item'             => __( 'View Gallery', 'wizzaro-gallery-v1' ),
+                'search_items'          => __( 'Search Galleries', 'wizzaro-gallery-v1' ),
+                'not_found'             => __( 'No Galeries found', 'wizzaro-gallery-v1' ),
+                'not_found_in_trash'    => __( 'No Galeries found in trash', 'wizzaro-gallery-v1' ),
+                'all_items'             => __( 'All Galleries', 'wizzaro-gallery-v1' ),
+                'archives'              => __( 'Galleries Archives', 'wizzaro-gallery-v1' ),
+                'insert_into_item'      => __( 'Insert into gallery', 'wizzaro-gallery-v1' ),
+                'uploaded_to_this_item' => __( 'Uploaded to this gallery', 'wizzaro-gallery-v1' ),
+                'menu_name'             => __( 'Galeries', 'wizzaro-gallery-v1'),
+            ),
+            'menu_icon' => 'dashicons-format-gallery',
+            'rewrite' => array(
+                'slug' => 'galleries'
+            )
         ),
-        'add_to_main_query' => true,
-        'admin_menu_icon' => 'dashicons-format-gallery',
-        //'menu_position' => 5,
         'taxonomies' => array(
             'wizzaro-gallery-category' => array(
                 'slug' => 'galleries-category',
@@ -58,7 +61,9 @@ return array(
                     'not_found'             => __( 'No categories found.' )
                 )
             )
-        )
+        ),
+        'add_to_main_query' => true,
+        'shordcode' => true
     ),
     /*
      * This variable gives you the opportunity to create your own post types for this plugin.
@@ -68,35 +73,15 @@ return array(
     'post_types' => array(
         'custom_post_type_key' => array(
             /*
-             * Inform about visibility of post type
+             * Inform about is this post  should be registered. Use false if you wont add gallery support for existing post type
              * Required: no
              */
-            'public' => true,
+            'register' => true,
             /*
-             * Required: yes
+             * An array of arguments. For more information look on: https://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+             * Required: If "register" parameter is true then yes otherwise no
              */
-            'post_type' => 'custom_post_type_key'
-            /*
-             * Customize the permalink structure slug. Default is array key ("custom_post_type_key" - in this example)
-             * Required: no
-             */
-            'slug' => 'your_slug',
-            /*
-             * An array of labels for this post type defined by wordpress standard.
-             * More info: https://codex.wordpress.org/Function_Reference/register_post_type#labels (section "Arguments" -> "labels")
-             * Required: yes
-             */
-            'labels'=> array(),
-            /*
-             * Inform with icon must be show in admin menu
-             * Required: no
-             */
-            'admin_menu_icon' => 'dashicons-format-gallery',
-            /*
-             * Inform where in admin menu show post type tab
-             * Required: no
-             */
-            'menu_position' => 5,
+            'args' => true,
             /*
              * Define shordcode name for post type which use for build shordcode string ex. [defined-shordcode-name id="gallery_post_id"]
              * use boolean true | false or string with shordcoe name (true = default shordcode name)

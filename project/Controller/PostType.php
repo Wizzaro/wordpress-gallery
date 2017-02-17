@@ -63,42 +63,30 @@ class PostType extends AbstractPluginController {
         do_action( 'wizzaro_gallery_before_register_post_types' );
 
         foreach ( $post_types_settings as $post_type => $post_type_settings ) {
-
-            if ( ! array_key_exists( 'public', $post_type_settings ) || $post_type_settings['public'] === true ) {
-                $args = $default_public_post_type_args;
-
-                if ( array_key_exists( 'slug', $post_type_settings ) ) {
-                    $args['rewrite'] = array( 'slug' => $post_type_settings['slug'] );
-                }
-
+            if ( array_key_exists( 'register', $post_type_settings) && $post_type_settings['register'] === false ) {
+                $this->_config->set_post_type( $post_type );
             } else {
-                $args = $default_private_post_type_args;
-            }
-
-            $args['labels'] = $post_type_settings['labels'];
-
-            if ( array_key_exists( 'admin_menu_icon', $post_type_settings ) ) {
-                $args['menu_icon'] = $post_type_settings['admin_menu_icon'];
-            }
-
-            if ( array_key_exists( 'menu_position', $post_type_settings ) ) {
-                $args['menu_position'] = $post_type_settings['menu_position'];
-            }
-
-            if ( array_key_exists( 'taxonomies', $post_type_settings ) ) {
-                $args['taxonomies'] = array_keys( $post_type_settings['taxonomies'] );
-
-                foreach ( $post_type_settings['taxonomies'] as $tax_name => $tax_settings ) {
-                    $this->register_taxonomy( $tax_name, $post_type, $tax_settings );
+                if ( ! array_key_exists( 'public', $post_type_settings['args'] ) || $post_type_settings['args']['public'] === false ) {
+                    $args = array_merge( $default_private_post_type_args, $post_type_settings['args'] );
+                } else {
+                    $args = array_merge( $default_public_post_type_args, $post_type_settings['args'] );
                 }
-            }
 
-            register_post_type( $post_type, $args );
+                if ( array_key_exists( 'taxonomies', $post_type_settings ) ) {
+                    $args['taxonomies'] = array_keys( $post_type_settings['taxonomies'] );
 
-            $this->_config->set_post_type( $post_type );
+                    foreach ( $post_type_settings['taxonomies'] as $tax_name => $tax_settings ) {
+                        $this->register_taxonomy( $tax_name, $post_type, $tax_settings );
+                    }
+                }
 
-            if ( $args['public'] === true && $post_type_settings['add_to_main_query'] === true ) {
-                $this->_config->set_main_query_post_type( $post_type );
+                register_post_type( $post_type, $args );
+
+                $this->_config->set_post_type( $post_type );
+
+                if ( $args['public'] === true && $post_type_settings['add_to_main_query'] === true ) {
+                    $this->_config->set_main_query_post_type( $post_type );
+                }
             }
         }
 
