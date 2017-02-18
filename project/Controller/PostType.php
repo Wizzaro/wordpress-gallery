@@ -66,7 +66,9 @@ class PostType extends AbstractPluginController {
             if ( array_key_exists( 'register', $post_type_settings) && $post_type_settings['register'] === false ) {
                 $this->_config->set_post_type( $post_type );
             } else {
-                if ( ! array_key_exists( 'public', $post_type_settings['args'] ) || $post_type_settings['args']['public'] === false ) {
+                $is_public = ( array_key_exists( 'public', $post_type_settings['args'] ) && $post_type_settings['args']['public'] === true );
+
+                if ( ! $is_public ) {
                     $args = array_merge( $default_private_post_type_args, $post_type_settings['args'] );
                 } else {
                     $args = array_merge( $default_public_post_type_args, $post_type_settings['args'] );
@@ -76,7 +78,7 @@ class PostType extends AbstractPluginController {
                     $args['taxonomies'] = array_keys( $post_type_settings['taxonomies'] );
 
                     foreach ( $post_type_settings['taxonomies'] as $tax_name => $tax_settings ) {
-                        $this->register_taxonomy( $tax_name, $post_type, $tax_settings );
+                        $this->register_taxonomy( $tax_name, $post_type, $tax_settings, $is_public );
                     }
                 }
 
@@ -98,11 +100,11 @@ class PostType extends AbstractPluginController {
         do_action( 'registered_post_type_wizzaro_gallery', $post_type_args );
     }
 
-    private function register_taxonomy( $taxonomy, $object_type, array $args) {
+    private function register_taxonomy( $taxonomy, $object_type, array $args, $public = true ) {
 
         $taxonomy_args = array(
             'labels'              => $args['labels'],
-            'public'              => true,
+            'public'              => $public,
             'show_ui'             => true,
             'show_in_menu'        => true,
             'show_in_nav_menus'   => true,
