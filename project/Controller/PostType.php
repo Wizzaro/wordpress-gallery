@@ -35,7 +35,7 @@ class PostType extends AbstractPluginController {
             'menu_position'       => 5,
             'menu_icon'           => 'dashicons-format-gallery',
             'can_export'          => true,
-            'exclude_from_search' => true,
+            'exclude_from_search' => false,
             'publicly_queryable'  => true,
             'capability_type'     => 'post',
         );
@@ -125,7 +125,7 @@ class PostType extends AbstractPluginController {
     }
 
     public function filter_add_gallery_to_posts_list( $query ) {
-        if ( $query->is_main_query() && ( is_home() || is_search() || is_author() || is_year() || is_month() || is_day() || is_tax() ) ) {
+        if ( $query->is_main_query() && ( is_home() || is_year() || is_month() || is_day() ) ) {
             $post_types = $query->get( 'post_type' );
 
             if ( is_array( $post_types ) ) {
