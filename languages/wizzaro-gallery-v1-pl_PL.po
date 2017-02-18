@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Wizzaro Gallery\n"
-"POT-Creation-Date: 2017-02-07 08:37+0100\n"
-"PO-Revision-Date: 2017-02-07 08:38+0100\n"
+"POT-Creation-Date: 2017-02-18 15:14+0100\n"
+"PO-Revision-Date: 2017-02-18 15:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -58,8 +58,8 @@ msgstr "Edytuj zdjęcie"
 msgid "Delete image"
 msgstr "Usuń zdjęcie"
 
-#: project/Component/Metabox/Images.php:108 project/Controller/Images.php:232
-#: project/Controller/Images.php:266 project/Controller/Images.php:299
+#: project/Component/Metabox/Images.php:108 project/Controller/Images.php:226
+#: project/Controller/Images.php:260 project/Controller/Images.php:293
 #: project/configuration/translations.php:16
 #: project/configuration/translations.php:26
 msgid "Error during set image as thumbnail."
@@ -91,8 +91,8 @@ msgstr "Zamknij"
 msgid "Save"
 msgstr "Zapisz"
 
-#: project/Component/Metabox/Images.php:133 project/Controller/Images.php:327
-#: project/Controller/Images.php:365 project/configuration/translations.php:17
+#: project/Component/Metabox/Images.php:133 project/Controller/Images.php:321
+#: project/Controller/Images.php:359 project/configuration/translations.php:17
 #: project/configuration/translations.php:31
 msgid "Error during deleting image."
 msgstr "Błąd podczas usuwania zdjęcia."
@@ -104,11 +104,16 @@ msgstr "Błąd podczas usuwania zdjęcia."
 msgid "In this gallery has no photos. Upload something."
 msgstr "W tej galerii nie ma zdjęć. Prześlij jakieś."
 
-#: project/Component/Metabox/Shortcode.php:44
-msgid "Shortcode"
-msgstr ""
+#: project/Component/Metabox/Settings.php:17
+#: project/Setting/SettingsPage.php:11
+msgid "Gallery Settings"
+msgstr "Ustawienia ﻿Galerii"
 
-#: project/Controller/Images.php:183 project/Service/Images.php:154
+#: project/Component/Metabox/Shortcode.php:20
+msgid "Gallery Shortcode"
+msgstr "Shortcode Galerii"
+
+#: project/Controller/Images.php:177 project/Service/Images.php:154
 #: project/Service/Images.php:237 project/Service/Images.php:308
 #: project/configuration/translations.php:21
 #: project/configuration/translations.php:74
@@ -117,30 +122,30 @@ msgstr ""
 msgid "Failed to write file to disk."
 msgstr "Błąd podczas zapisu pliku."
 
-#: project/Controller/Images.php:190 project/Controller/Images.php:239
-#: project/Controller/Images.php:334 project/Controller/Images.php:372
+#: project/Controller/Images.php:184 project/Controller/Images.php:233
+#: project/Controller/Images.php:328 project/Controller/Images.php:366
 #: project/configuration/translations.php:22
 #: project/configuration/translations.php:27
 #: project/configuration/translations.php:32
 msgid "Unknown galley."
 msgstr "Nie znana galeria."
 
-#: project/Controller/Images.php:194 project/configuration/translations.php:23
+#: project/Controller/Images.php:188 project/configuration/translations.php:23
 msgid "You are not allowed to edit this item."
 msgstr "Nie masz uprawnień do edytowania tego elementu."
 
-#: project/Controller/Images.php:199 project/Service/Images.php:151
+#: project/Controller/Images.php:193 project/Service/Images.php:151
 #: project/configuration/translations.php:24
 #: project/configuration/translations.php:72
 msgid "No file was uploaded."
 msgstr "Żaden plik nie został wysłany."
 
-#: project/Controller/Images.php:243 project/configuration/translations.php:28
+#: project/Controller/Images.php:237 project/configuration/translations.php:28
 msgid "You are not allowed to edit this item. Has your session expired?"
 msgstr ""
 "Nie masz uprawnień do edytowania tego elementu. Czy twoja sesja wygasła?"
 
-#: project/Controller/Images.php:247
+#: project/Controller/Images.php:241
 msgid ""
 "This post supports a standard mechanism for adding thumbnails - use it if "
 "you want to define thumbnail for him"
@@ -148,17 +153,21 @@ msgstr ""
 "Ten post obsługuje standardowy mechanizm dodawania miniatury - użyj go jeśli "
 "chcesz zdefiniować dla niego miniaturę"
 
-#: project/Controller/Images.php:253 project/Service/Images.php:355
+#: project/Controller/Images.php:247 project/Service/Images.php:355
 #: project/Service/Images.php:375 project/configuration/translations.php:29
 #: project/configuration/translations.php:83
 msgid "Image no exist. Has it been deleted already?"
 msgstr "Zdjęcie nie istnieje. Czy nie zostało już usunięte?"
 
-#: project/Controller/Images.php:338 project/Controller/Images.php:376
+#: project/Controller/Images.php:332 project/Controller/Images.php:370
 #: project/configuration/translations.php:33
 msgid "You are not allowed to delete this item. Has your session expired?"
 msgstr ""
 "Nie masz uprawnień do usunięcia tego elementu. Czy twoja sesja wygasła?"
+
+#: project/Controller/Shortcode.php:42
+msgid "Shortcode"
+msgstr "Shortcode"
 
 #: project/Model/Table/Images.php:39
 #, php-format
@@ -266,13 +275,9 @@ msgstr ""
 "miejsce tytuł galerii i skrótu \"{image_name}\", które wstawi w to miejsce "
 "nazwę obrazu\""
 
-#: project/Setting/SettingsPage.php:11
-msgid "Gallery Settings"
-msgstr "Ustawienia ﻿Galerii"
-
 #: project/Setting/SettingsPage.php:12
-#: project/configuration/plugin.config.local.sample.php:23
-#: project/configuration/plugin.config.php:40
+#: project/configuration/plugin.config.local.sample.php:24
+#: project/configuration/plugin.config.php:42
 #: project/configuration/translations.php:50
 msgid "Gallery"
 msgstr "Galeria"
@@ -354,177 +359,188 @@ msgstr ""
 msgid "Maximum upload file size: %s."
 msgstr "Maksymalny rozmiar pliku jaki można wysłać to: %s."
 
-#: project/View/wizzaro/gallery/v1/controller/images/post-gallery.php:11
-#: project/configuration/translations.php:118
-msgid "Loading images"
-msgstr "Ładowanie zdjęć"
+#: project/View/wizzaro/gallery/v1/component/metabox/settings/metabox.php:9
+msgid "Columns"
+msgstr "Kolumny"
 
-#: project/View/wizzaro/gallery/v1/controller/images/post-gallery.php:34
+#: project/View/wizzaro/gallery/v1/component/metabox/settings/metabox.php:22
+msgid "Display no image information"
+msgstr "Wyświetlać informacje o braku zdjęć w galerii"
+
+#: project/View/wizzaro/gallery/v1/component/metabox/settings/metabox.php:24
+msgid "Yes"
+msgstr ""
+
+#: project/View/wizzaro/gallery/v1/component/metabox/settings/metabox.php:25
+msgid "No"
+msgstr ""
+
+#: project/View/wizzaro/gallery/v1/controller/images/post-gallery.php:47
 msgid "No images in gallery."
 msgstr "Brak zdjęć w galerii."
 
-#: project/configuration/plugin.config.local.sample.php:22
-#: project/configuration/plugin.config.local.sample.php:37
-#: project/configuration/plugin.config.php:39
-#: project/configuration/plugin.config.php:54
+#: project/configuration/plugin.config.local.sample.php:23
+#: project/configuration/plugin.config.local.sample.php:38
+#: project/configuration/plugin.config.php:41
+#: project/configuration/plugin.config.php:56
 #: project/configuration/translations.php:49
 #: project/configuration/translations.php:64
 msgid "Galeries"
 msgstr "Galerie"
 
-#: project/configuration/plugin.config.local.sample.php:24
-#: project/configuration/plugin.config.php:41
+#: project/configuration/plugin.config.local.sample.php:25
+#: project/configuration/plugin.config.php:43
 #: project/configuration/translations.php:51
 msgid "Add Gallery"
 msgstr "Dodaj Galerię "
 
-#: project/configuration/plugin.config.local.sample.php:25
-#: project/configuration/plugin.config.php:42
+#: project/configuration/plugin.config.local.sample.php:26
+#: project/configuration/plugin.config.php:44
 #: project/configuration/translations.php:52
 msgid "Add New Gallery"
 msgstr "Dodaj nową Galerię"
 
-#: project/configuration/plugin.config.local.sample.php:26
 #: project/configuration/plugin.config.local.sample.php:27
-#: project/configuration/plugin.config.php:43
-#: project/configuration/plugin.config.php:44
+#: project/configuration/plugin.config.local.sample.php:28
+#: project/configuration/plugin.config.php:45
+#: project/configuration/plugin.config.php:46
 #: project/configuration/translations.php:53
 #: project/configuration/translations.php:54
 msgid "Edit Gallery"
 msgstr "Edytuj Galerię"
 
-#: project/configuration/plugin.config.local.sample.php:28
-#: project/configuration/plugin.config.php:45
+#: project/configuration/plugin.config.local.sample.php:29
+#: project/configuration/plugin.config.php:47
 #: project/configuration/translations.php:55
 msgid "New Gallery"
 msgstr "Nowa Galeria"
 
-#: project/configuration/plugin.config.local.sample.php:29
-#: project/configuration/plugin.config.php:46
+#: project/configuration/plugin.config.local.sample.php:30
+#: project/configuration/plugin.config.php:48
 #: project/configuration/translations.php:56
 msgid "View Gallery"
 msgstr "Zobacz Galerię"
 
-#: project/configuration/plugin.config.local.sample.php:30
-#: project/configuration/plugin.config.php:47
+#: project/configuration/plugin.config.local.sample.php:31
+#: project/configuration/plugin.config.php:49
 #: project/configuration/translations.php:57
 msgid "Search Galleries"
 msgstr "Szukaj Galerii"
 
-#: project/configuration/plugin.config.local.sample.php:31
-#: project/configuration/plugin.config.php:48
+#: project/configuration/plugin.config.local.sample.php:32
+#: project/configuration/plugin.config.php:50
 #: project/configuration/translations.php:58
 msgid "No Galeries found"
 msgstr "Nie znaleziono Galerii"
 
-#: project/configuration/plugin.config.local.sample.php:32
-#: project/configuration/plugin.config.php:49
+#: project/configuration/plugin.config.local.sample.php:33
+#: project/configuration/plugin.config.php:51
 #: project/configuration/translations.php:59
 msgid "No Galeries found in trash"
 msgstr "Nie znaleziono żadnych galerii w koszu"
 
-#: project/configuration/plugin.config.local.sample.php:33
-#: project/configuration/plugin.config.php:50
+#: project/configuration/plugin.config.local.sample.php:34
+#: project/configuration/plugin.config.php:52
 #: project/configuration/translations.php:60
 msgid "All Galleries"
 msgstr "Wszystkie Galerie"
 
-#: project/configuration/plugin.config.local.sample.php:34
-#: project/configuration/plugin.config.php:51
+#: project/configuration/plugin.config.local.sample.php:35
+#: project/configuration/plugin.config.php:53
 #: project/configuration/translations.php:61
 msgid "Galleries Archives"
 msgstr "Archiwum Galerii"
 
-#: project/configuration/plugin.config.local.sample.php:35
-#: project/configuration/plugin.config.php:52
+#: project/configuration/plugin.config.local.sample.php:36
+#: project/configuration/plugin.config.php:54
 #: project/configuration/translations.php:62
 msgid "Insert into gallery"
 msgstr "Dodaj do galerii"
 
-#: project/configuration/plugin.config.local.sample.php:36
-#: project/configuration/plugin.config.php:53
+#: project/configuration/plugin.config.local.sample.php:37
+#: project/configuration/plugin.config.php:55
 #: project/configuration/translations.php:63
 msgid "Uploaded to this gallery"
 msgstr "Prześlij do tej galerii"
 
-#: project/configuration/plugin.config.local.sample.php:47
-#: project/configuration/plugin.config.php:64
+#: project/configuration/plugin.config.local.sample.php:50
+#: project/configuration/plugin.config.php:68
 #: project/configuration/translations.php:36
 msgid "Gallery Categories "
 msgstr "Kategorie Galerii"
 
-#: project/configuration/plugin.config.local.sample.php:48
-#: project/configuration/plugin.config.php:65
+#: project/configuration/plugin.config.local.sample.php:51
+#: project/configuration/plugin.config.php:69
 #: project/configuration/translations.php:37
 msgid "Gallery Category "
 msgstr "Kategoria Galeri"
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:49
-#: project/configuration/plugin.config.php:66
+#: project/configuration/plugin.config.local.sample.php:52
+#: project/configuration/plugin.config.php:70
 #: project/configuration/translations.php:38
 msgid "All Categories"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:50
-#: project/configuration/plugin.config.php:67
+#: project/configuration/plugin.config.local.sample.php:53
+#: project/configuration/plugin.config.php:71
 #: project/configuration/translations.php:39
 msgid "Edit Category"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:51
-#: project/configuration/plugin.config.php:68
+#: project/configuration/plugin.config.local.sample.php:54
+#: project/configuration/plugin.config.php:72
 #: project/configuration/translations.php:40
 msgid "View Category"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:52
-#: project/configuration/plugin.config.php:69
+#: project/configuration/plugin.config.local.sample.php:55
+#: project/configuration/plugin.config.php:73
 #: project/configuration/translations.php:41
 msgid "Update Category"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:53
-#: project/configuration/plugin.config.php:70
+#: project/configuration/plugin.config.local.sample.php:56
+#: project/configuration/plugin.config.php:74
 #: project/configuration/translations.php:42
 msgid "Add New Category"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:54
-#: project/configuration/plugin.config.php:71
+#: project/configuration/plugin.config.local.sample.php:57
+#: project/configuration/plugin.config.php:75
 #: project/configuration/translations.php:43
 msgid "New Category Name"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:55
-#: project/configuration/plugin.config.php:72
+#: project/configuration/plugin.config.local.sample.php:58
+#: project/configuration/plugin.config.php:76
 #: project/configuration/translations.php:44
 msgid "Parent Category"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:56
-#: project/configuration/plugin.config.php:73
+#: project/configuration/plugin.config.local.sample.php:59
+#: project/configuration/plugin.config.php:77
 #: project/configuration/translations.php:45
 msgid "Parent Category:"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:57
-#: project/configuration/plugin.config.php:74
+#: project/configuration/plugin.config.local.sample.php:60
+#: project/configuration/plugin.config.php:78
 #: project/configuration/translations.php:46
 msgid "Search Categories"
 msgstr ""
 
 # Globalne tłumaczenie wordpressa
-#: project/configuration/plugin.config.local.sample.php:58
-#: project/configuration/plugin.config.php:75
+#: project/configuration/plugin.config.local.sample.php:61
+#: project/configuration/plugin.config.php:79
 #: project/configuration/translations.php:47
 msgid "No categories found."
 msgstr ""
@@ -538,6 +554,10 @@ msgctxt "Uploader: Drop files here - or - Select Files"
 msgid "or"
 msgstr "lub"
 
+#: project/configuration/translations.php:118
+msgid "Loading images"
+msgstr "Ładowanie zdjęć"
+
 #: vendor/wizzaro/wordpress-framework-v1/src/Views/settings-page/fields/admin-field-wp-page.php:2
 msgid "----"
 msgstr ""
@@ -548,7 +568,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "This is plugin for create gallery post type"
-msgstr ""
+msgstr "Jest to plugin do tworzenia galerii"
 
 #. Author of the plugin/theme
 msgid "Przemysław Dziadek"
