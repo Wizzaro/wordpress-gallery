@@ -6,18 +6,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Wizzaro/wordpress-framework-v1.git",
-            "reference": "823dec0317971b6fe3d1a0dc9fe3b9894732fc58"
+            "reference": "28ab1bf814c60ccbe232b1e2bfa46d751b615330"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Wizzaro/wordpress-framework-v1/zipball/823dec0317971b6fe3d1a0dc9fe3b9894732fc58",
-            "reference": "823dec0317971b6fe3d1a0dc9fe3b9894732fc58",
+            "url": "https://api.github.com/repos/Wizzaro/wordpress-framework-v1/zipball/28ab1bf814c60ccbe232b1e2bfa46d751b615330",
+            "reference": "28ab1bf814c60ccbe232b1e2bfa46d751b615330",
             "shasum": ""
         },
         "require": {
             "php": "^5.5 || ^7.0"
         },
-        "time": "2016-09-06 12:17:05",
+        "time": "2017-02-16T13:10:36+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {

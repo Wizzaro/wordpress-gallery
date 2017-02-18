@@ -7,12 +7,12 @@ abstract class AbstractOptionFormTab {
     
     protected $_option_instance;
     
-    public function __construct( &$setting_page_instance, &$option_instance ) {
+    public function __construct( &$setting_page_instance, &$option_instance, $position = 1 ) {
         
         $tab_conf = $this->_get_tab_config();
         
         $this->_setting_page_instance = $setting_page_instance;
-        $this->_setting_page_instance->add_tab( $tab_conf['name'], $tab_conf['slug'], $this, 'render_option_tab' );
+        $this->_setting_page_instance->add_tab( $tab_conf['name'], $tab_conf['slug'], $this, 'render_option_tab', $position );
         
         $this->_option_instance = $option_instance;
         

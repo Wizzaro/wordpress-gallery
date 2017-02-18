@@ -17,7 +17,7 @@ class Shortcode extends AbstractMetabox {
         if ( ! $this->_config ) {
             $this->_config = array(
                 'id' => 'wizzaro-gallery-shortcode',
-                'title' => __( 'Shortcode', PluginConfig::get_instance()->get( 'languages', 'domain' ) ),
+                'title' => __( 'Gallery Shortcode', PluginConfig::get_instance()->get( 'languages', 'domain' ) ),
                 'screen' => array(),
                 'context' => 'side',
                 'priority' => 'core'

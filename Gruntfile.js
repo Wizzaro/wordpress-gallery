@@ -4,18 +4,8 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         //----------------------------------------
         compass: {
-            dist_gallery: {                   
-                options: {            
-                    config: 'assets-dev/sass-front/config.rb',
-                    specify: [
-                        'assets-dev/sass-front/gallery.scss',
-                    ],
-                    outputStyle: 'compressed',
-                    environment: 'production'
-                }
-            },
-            dist_admin_metabox: {                   
-                options: {            
+            dist_admin_metabox: {
+                options: {
                     config: 'assets-dev/sass-admin/config.rb',
                     specify: [
                         'assets-dev/sass-admin/wizzaro-gallery.scss',
@@ -37,12 +27,6 @@ module.exports = function (grunt) {
                 ],
                 dest: 'assets/js/admin/wizzaro-gallery.js'
             },
-            gallery: {
-                src: [
-                    'assets-dev/js/*.js',
-                ],
-                dest: 'assets/js/wizzaro-gallery.js'
-            }
         },
         //----------------------------------------
         uglify: {
@@ -55,30 +39,11 @@ module.exports = function (grunt) {
                         'assets-dev/js-admin/*/*/*/*.js',
                         'assets-dev/js-admin/*/*/*/*/*.js',
                     ],
-                    'assets/js/wizzaro-gallery.js': [
-                        'assets-dev/js/*.js',
-                    ]
                 },
             }
         },
         //----------------------------------------
         watch: {
-            js_gallery: {
-                files: [
-                    'assets-dev/js/*.js',
-                ],
-                tasks: ['concat:gallery']
-            },
-            css_gallery: {
-                files: [
-                    'assets-dev/sass-front/*.scss',
-                    'assets-dev/sass-front/*/*.scss',
-                    'assets-dev/sass-front/*/*/*.scss',
-                    'assets-dev/sass-front/*/*/*/*.scss',
-                    'assets-dev/sass-front/*/*/*/*/*.scss',
-                ],
-                tasks: ['compass:dist_gallery']
-            },
             js_dist_admin_metabox: {
                 files: [
                     'assets-dev/js-admin/*.js',

@@ -12,14 +12,15 @@ use Wizzaro\Gallery\v1\Setting\OptionFormTab\Image as ImageOptionFormTab;
 use Wizzaro\Gallery\v1\Option\Image as ImageOption;
 use Wizzaro\Gallery\v1\Model\Table\Images as ImagesDBTable;
 use Wizzaro\Gallery\v1\Component\Metabox\Images as ImagesMetabox;
+use Wizzaro\Gallery\v1\Component\Metabox\Settings as SettingsMetabox;
 use Wizzaro\Gallery\v1\Service\Images as ImagesService;
+use Wizzaro\Gallery\v1\PostMeta\Settings as SettingsPostMeta;
 
 use \Exception;
 
 class Images extends AbstractPluginController {
 
     public function init_front() {
-        add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_style' ) );
         add_action( 'wizzaro_gallery_after_register_post_types', array( $this, 'action_init_shordcode' ), 10, 1 );
         add_filter( 'the_content', array( $this, 'filter_add_images_to_content' ) );
     }
@@ -29,6 +30,7 @@ class Images extends AbstractPluginController {
 
         new ImageOptionFormTab( SettingsPage::get_instance(), ImageOption::get_instance() );
         ImagesMetabox::create();
+        SettingsMetabox::create();
 
         add_action( 'admin_enqueue_scripts', array( $this, 'action_enqueue_gallery_style' ) );
         add_action( 'before_delete_post', array( $this, 'action_delete_gallery_folder' ) );
@@ -42,12 +44,6 @@ class Images extends AbstractPluginController {
 
         add_action( 'post_edit_form_tag' , array( $this, 'action_post_edit_form_tag' ) );
         add_action( 'save_post', array( $this, 'reset_images_view_cache' ), 10, 2 );
-    }
-
-    public function action_enqueue_style() {
-        if ( apply_filters( 'wizzaro-gallery-enqueue_style', true ) ) {
-            wp_enqueue_style( 'wizzaro-gallery', $this->_config->get_css_url() . 'gallery.css', array(), '1.0.0' );
-        }
     }
 
     public function action_init_shordcode( $post_types_settings ) {
@@ -70,7 +66,6 @@ class Images extends AbstractPluginController {
             $post = get_post( $attrs['id'] );
 
             if ( $post && in_array( $post->post_type, PluginConfig::get_instance()->get_galeries_post_types() ) ) {
-                wp_enqueue_script( 'wizzaro-gallery-script', $this->_config->get_js_url() . 'wizzaro-gallery.js', array( 'jquery', 'jquery-masonry' ), '1.0', true );
                 $view = $this->get_gallery_view( $post );
             }
         }
@@ -83,7 +78,6 @@ class Images extends AbstractPluginController {
             $post = get_post();
 
             if ( $post && in_array( $post->post_type, PluginConfig::get_instance()->get_galeries_post_types() ) ) {
-                wp_enqueue_script( 'wizzaro-gallery-script', $this->_config->get_js_url() . 'wizzaro-gallery.js', array( 'jquery', 'jquery-masonry' ), '1.0', true );
                 $content .= $this->get_gallery_view( $post );
             }
         }
@@ -96,12 +90,14 @@ class Images extends AbstractPluginController {
 
         if ( ! $view ) {
             $service = ImagesService::get_instance();
+            $settings = new SettingsPostMeta( $post->ID );
 
             $view_data = array (
                 'post' => $post,
                 'languages_domain' => $this->_config->get( 'languages', 'domain' ),
                 'urls' => $service->get_gallery_url( $service->get_gallery_dir( $post, false ) ),
-                'images' => $service->get_post_images( $post, true )
+                'images' => $service->get_post_images( $post, true ),
+                'settings' => $settings->get_values()
             );
 
             if ( $this->is_themes_view_exist( 'post-gallery-' . $post->post_type ) ) {

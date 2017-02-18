@@ -11,7 +11,7 @@
     <div id="setings_page_content">
         <?php
             if ( is_object( $view_data['current_tab_obj'] ) && method_exists( $view_data['current_tab_obj'], $view_data['current_tab_render_fn'] ) ) {
-                $view_data['current_tab_obj']->$view_data['current_tab_render_fn']();
+                call_user_func( array( $view_data['current_tab_obj'], $view_data['current_tab_render_fn'] ) );
             }
         ?>
     </div>

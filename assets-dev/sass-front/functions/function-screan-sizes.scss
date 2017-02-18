@@ -1,5 +1,0 @@
-@function get_screen_size( $screenNo, $type: max ) {
-    $screenMap: map-get( $screen-sizes, $screenNo );
-    $result: map-get( $screenMap, $type );
-    @return $result;
-}
