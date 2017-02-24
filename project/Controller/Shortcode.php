@@ -30,7 +30,9 @@ class Shortcode extends AbstractPluginController {
             }
         }
 
-        ShortcodeMetabox::get_instance()->set_config( array( 'screen' => array_keys( $shordcodes_galleries_post_types ) ) );
+        if ( count( $shordcodes_galleries_post_types ) > 0 ) {
+            ShortcodeMetabox::get_instance()->set_config( array( 'screen' => array_keys( $shordcodes_galleries_post_types ) ) );
+        }
     }
 
     public function filter_reservation_data_columns( $existing_columns ) {
